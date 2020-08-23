@@ -1,3 +1,6 @@
+//dpt = Department
+//emp = Employee
+
 // get the client
 const mysql = require('mysql2');
 
@@ -32,6 +35,7 @@ runEmpMgr = () => {
     empMgrMenu();
 };
 
+//User Interface
 empMgrMenu = () => {
     console.log(`Accessing Database...`)
     inquirer.prompt(
@@ -41,9 +45,9 @@ empMgrMenu = () => {
         message: 'What do you need to do today?',
         choices: 
       [
-       'View All Departments', 
-       'View All Roles', 
-       'View All Employees', 
+       'View All Departments', //Interface Complete
+       'View All Roles',  //Interface Complete
+       'View All Employees', //Interface Complete
        'Add a Department', 
        'Add a Role', 
        'Add An Employee', 
@@ -53,19 +57,38 @@ empMgrMenu = () => {
       .then(function (response) {
         switch (response.mainmenu) {
           case 'View All Departments':
-            viewAllDepartments()
+            viewAllDpt()
+            break;
+          case 'View All Roles':
+            viewAllRoles()
+            break;
+          case 'View All Employees':
+            viewAllEmp()
+            break;
+          case 'Add a Department':
+            addDept()
+            break;
+          case 'Add a Role':
+            addRole()
+            break;
+          case 'Add An Employee':
+            addEmp()
+            break;
+          case 'Update Employee Role':
+            updateEmpRole()
             break;
         }
       })    
 };
 
-viewAllDepartments = () => {
+//Display Information and allow the user to move around the application.
+viewAllDpt = () => {
   console.log(`Viewing all Departments - Placeholder`)
   inquirer.prompt(
     {
       type: 'list',
-    name: 'dptmenu',
-    message: 'All Derpartments',
+    name: 'allDpt',
+    message: 'This is all of the information we have right now. What would you like to do next?',
     choices: 
       [
         'Return to Main Menu',
@@ -73,7 +96,7 @@ viewAllDepartments = () => {
       ]
     })
     .then(function (response) {
-      switch (response.dptmenu) {
+      switch (response.allDpt) {
         case 'Return to Main Menu':
           empMgrMenu()
           break;
@@ -81,6 +104,70 @@ viewAllDepartments = () => {
           break;
       }
     }) 
+};
+
+viewAllRoles = () => {
+  console.log(`Viewing All Roles - Placeholder`)
+  inquirer.prompt(
+    {
+      type: 'list',
+    name: 'allRoles',
+    message: 'This is all of the information we have right now. What would you like to do next?',
+    choices: 
+      [
+        'Return to Main Menu',
+        'Exit Employee Manager'
+      ]
+    })
+    .then(function (response) {
+      switch (response.allRoles) {
+        case 'Return to Main Menu':
+          empMgrMenu()
+          break;
+        case "Exit Employee Manager":
+          break;
+      }
+    }) 
+};
+
+viewAllEmp = () => {
+  console.log(`Viewing All Employees - Placeholder`)
+  inquirer.prompt(
+    {
+      type: 'list',
+    name: 'allEmp',
+    message: 'This is all of the information we have right now. What would you like to do next?',
+    choices: 
+      [
+        'Return to Main Menu',
+        'Exit Employee Manager'
+      ]
+    })
+    .then(function (response) {
+      switch (response.allEmp) {
+        case 'Return to Main Menu':
+          empMgrMenu()
+          break;
+        case "Exit Employee Manager":
+          break;
+      }
+    }) 
+};
+
+addDept = () => {
+
+};
+
+addRole = () => {
+
+};
+
+addEmp = () => {
+
+};
+
+updateEmpRole = () => {
+
 };
 
  
