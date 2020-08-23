@@ -34,25 +34,54 @@ runEmpMgr = () => {
 
 empMgrMenu = () => {
     console.log(`Accessing Database...`)
-    inquirer.prompt(mainmenu);
+    inquirer.prompt(
+      {
+        type: 'list',
+        name: 'mainmenu',
+        message: 'What do you need to do today?',
+        choices: 
+      [
+       'View All Departments', 
+       'View All Roles', 
+       'View All Employees', 
+       'Add a Department', 
+       'Add a Role', 
+       'Add An Employee', 
+       'Update Employee Role'
+      ]
+      })
+      .then(function (response) {
+        switch (response.mainmenu) {
+          case 'View All Departments':
+            viewAllDepartments()
+            break;
+        }
+      })    
 };
 
-const mainmenu = [
-  {
-    type: 'list',
-    name: 'mainmenu',
-    message: 'What do you need to do today?',
+viewAllDepartments = () => {
+  console.log(`Viewing all Departments - Placeholder`)
+  inquirer.prompt(
+    {
+      type: 'list',
+    name: 'dptmenu',
+    message: 'All Derpartments',
     choices: 
-      [' View All Departments ', 
-       ' View All Roles ', 
-       ' View All Employees ', 
-       ' Add a Department ', 
-       ' Add a Role ', 
-       ' Add An Employee ', 
-       ' Update Employee Role '
+      [
+        'Return to Main Menu',
+        'Exit Employee Manager'
       ]
-  }
-]
+    })
+    .then(function (response) {
+      switch (response.dptmenu) {
+        case 'Return to Main Menu':
+          empMgrMenu()
+          break;
+        case "Exit Employee Manager":
+          break;
+      }
+    }) 
+};
 
  
 // simple query
