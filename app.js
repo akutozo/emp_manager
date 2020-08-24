@@ -84,7 +84,7 @@ viewAllDpt = () => {
           ]
         })
         .then(function (response) {
-          switch (response.allEmp) {
+          switch (response.allDpt) {
             case 'Return to Main Menu':
               empMgrMenu()
               break;
@@ -115,7 +115,7 @@ viewAllRoles = () => {
           ]
         })
         .then(function (response) {
-          switch (response.allEmp) {
+          switch (response.allRoles) {
             case 'Return to Main Menu':
               empMgrMenu()
               break;
@@ -214,7 +214,69 @@ addDpt = () => {
 }
 
 addRole = () => {
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: "title",
+      message: "Give your Role a Title: "
+    },
+    {
+      type: 'decimal',
+      name: "salary",
+      message: "Assign a Salary:"
+    },
+    {
+      type: 'input',
+      name: "department_id",
+      message: "Provide the ID number for your Deparment (Use 6 if Unsure):"
+    }
+  ])
+  .then(function (answer) {
+    var query = "INSERT INTO emp_role SET ?"
+        const values = {
+          title: answer.title,
+          salary: answer.salary,
+          department_id: answer.department_id
+        }
+        connection.query(query, values, function (err) {
+          if (err) throw err;
+          console.table("role created!");
 
+        console.log(answer.title + " has been added to existing roles")
+        inquirer.prompt(
+          {
+            type: 'list',
+          name: 'addRoleComplete',
+          message: 'What would you like to do next?',
+          choices: 
+            [
+              'Return to Main Menu',
+              'View All Departments',
+              'Add Another Role',
+              'Add An Employee',
+              'Exit Employee Manager'
+            ]
+          })
+          .then(function (response) {
+            switch (response.addRoleComplete) {
+              case 'Return to Main Menu':
+                empMgrMenu()
+                break;
+              case 'View All Departments':
+                viewAllDpt()
+                break;
+              case 'Add Another Role':
+                addRole()
+                break;
+              case 'Add An Employee':
+                addEmp()
+                break;
+              case "Exit Employee Manager":
+                process.exit()
+              }
+          })
+      })
+  })
 };
 
 addEmp = () => {
