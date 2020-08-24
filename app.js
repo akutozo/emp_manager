@@ -48,7 +48,7 @@ empMgrMenu = () => {
             viewAllEmp()
             break;
           case 'Add a Department':
-            addDept()
+            addDpt()
             break;
           case 'Add a Role':
             addRole()
@@ -162,9 +162,56 @@ viewAllEmp = () => {
   );
 };
 
-addDept = () => {
+addDpt = () => {
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: "dptName",
+      message: "Give your Department a Name: "
+    }
+  ])
+    .then(function (answer) {
+      var query = connection.query("INSERT INTO department (dpt_name) VALUES (?)",
+        [dpt_name = answer.dptName],
 
-};
+        function (err, result) {
+          if (err) throw err;
+          console.log(answer.title + " has been added to department list")
+          inquirer.prompt(
+            {
+              type: 'list',
+            name: 'addDptComplete',
+            message: 'What would you like to do next?',
+            choices: 
+              [
+                'Return to Main Menu',
+                'View All Departments',
+                'Add A Role',
+                'Add An Employee',
+                'Exit Employee Manager'
+              ]
+            })
+            .then(function (response) {
+              switch (response.addDptComplete) {
+                case 'Return to Main Menu':
+                  empMgrMenu()
+                  break;
+                case 'View All Departments':
+                  viewAllDpt()
+                  break;
+                case 'Add a Role':
+                  addRole()
+                  break;
+                case 'Add An Employee':
+                  addEmp()
+                  break;
+                case "Exit Employee Manager":
+                  process.exit()
+                }
+            })
+        })
+    })
+}
 
 addRole = () => {
 
@@ -177,24 +224,3 @@ addEmp = () => {
 updateEmpRole = () => {
 
 };
-
- 
-// simple query
-// connection.query(
-//   'SELECT * FROM `table` WHERE `name` = "Page" AND `age` > 45',
-//   function(err, results, fields) {
-//     // console.log(results); // results contains rows returned by server
-//     // console.log(fields); // fields contains extra meta data about results, if available
-//   }
-// );
- 
-// with placeholder
-// connection.query(
-//   'SELECT * FROM employee',
-//   function(err, results) {
-//   console.log(results);
-//   }
-// );
-
-
-// runEmpMgr();
