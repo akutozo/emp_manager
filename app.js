@@ -228,7 +228,7 @@ addRole = () => {
     {
       type: 'input',
       name: "department_id",
-      message: "Provide the ID number for your Deparment (Use 6 if Unsure):"
+      message: "Provide the ID number for your Deparment (Use 7 if Unsure):"
     }
   ])
   .then(function (answer) {
@@ -240,7 +240,7 @@ addRole = () => {
         }
         connection.query(query, values, function (err) {
           if (err) throw err;
-          console.table("role created!");
+          console.table("Role created!");
 
         console.log(answer.title + " has been added to existing roles")
         inquirer.prompt(
@@ -280,9 +280,81 @@ addRole = () => {
 };
 
 addEmp = () => {
-
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: "first_name",
+      message: "Enter First Name: "
+    },
+    {
+      type: 'input',
+      name: "last_name",
+      message: "Enter Last Name"
+    },
+    {
+      type: 'input',
+      name: "role_id",
+      message: "Provide the ID number their Role (Use 7 if Unsure):"
+    },
+    {
+      type: 'input',
+      name: "manager_id",
+      message: "Provide the ID number their Role (Must Provide Number):"
+    },
+  ])
+  .then(function (answer) {
+    var query = "INSERT INTO employee SET ?"
+        const values = {
+          first_name: answer.first_name,
+          last_name: answer.last_name,
+          role_id: answer.role_id,
+          manager_id: answer.manager_id
+        }
+        connection.query(query, values, function (err) {
+          if (err) throw err;
+          console.table("Employee has been added to the system.");
+        inquirer.prompt(
+          {
+            type: 'list',
+          name: 'addEmpComplete',
+          message: 'What would you like to do next?',
+          choices: 
+            [
+              'Return to Main Menu',
+              'View All Departments',
+              'Add Another Role',
+              'Add An Employee',
+              'Exit Employee Manager'
+            ]
+          })
+          .then(function (response) {
+            switch (response.addEmpComplete) {
+              case 'Return to Main Menu':
+                empMgrMenu()
+                break;
+              case 'View All Departments':
+                viewAllDpt()
+                break;
+              case 'Add Another Role':
+                addRole()
+                break;
+              case 'Add An Employee':
+                addEmp()
+                break;
+              case "Exit Employee Manager":
+                process.exit()
+              }
+          })
+      })
+  })
 };
 
 updateEmpRole = () => {
-
-};
+  //Need to add a put
+  //Create List of Departments
+  //Create List of Employees in that Department
+  //Select Employee From List
+  //Be Presented with List of Roles Inside Department
+  //Be Presented with Option to Expand Roles Outside Department
+  //Role Select UPDATE employee
+}
