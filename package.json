@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/akutozo/emp_manager#readme",
   "dependencies": {
+    "asciiart-logo": "^0.2.6",
     "console.table": "^0.10.0",
     "inquirer": "^7.3.3",
     "jest": "^26.4.2",
