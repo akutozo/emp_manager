@@ -176,7 +176,7 @@ addDpt = () => {
 
         function (err, result) {
           if (err) throw err;
-          console.log(answer.title + " has been added to department list")
+          console.log(answer.dpt + " has been added to department list")
           inquirer.prompt(
             {
               type: 'list',
